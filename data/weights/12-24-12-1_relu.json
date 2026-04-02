@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "architecture": [
+    12,
+    24,
+    12,
+    1
+  ],
+  "hidden_activation": "relu",
+  "weight_file": "12-24-12-1_relu.npz"
+}

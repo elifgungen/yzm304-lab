@@ -35,8 +35,24 @@ Odev metni `docs/assignment/yzm304_proje2_2526.pdf` altinda saklandi.
 ### Modeller
 - `LeNetLikeCNN`: LeNet-5 benzeri temel CNN. Conv2d, ReLU, AvgPool2d, Flatten ve fully connected katmanlari acik olarak yazildi.
 - `ImprovedLeNetCNN`: Ilk modelle ayni evrisim hiperparametrelerini ve classifier genisliklerini korur; ek olarak batch normalization ve dropout kullanir.
-- `AlexNetSmallCNN`: AlexNet/VGG tarzinda daha derin ve max-pooling kullanan kompakt CNN mimarisidir. `torchvision` bagimliligi olmadan acik sinif olarak yazildi.
+- `AlexNetSmallCNN`: AlexNet/VGG tarzinda daha derin ve max-pooling kullanan kompakt CNN mimarisidir. Odev metninde ornek verilen yaygin CNN aileleri referans alindi; veri seti 8x8 grayscale oldugu icin klasik AlexNet dogrudan kullanilmak yerine kucuk goruntulere uyarlanmis acik bir mimari yazildi.
 - `Hybrid_AlexNetFeatures_SVM`: Egitilmis `AlexNetSmallCNN` modelinin feature extractor kismi ile `.npy` ozellik ve label setleri olusturuldu; ardindan RBF kernel SVM egitildi.
+
+### Odev gereksinim izleme tablosu
+| Gereksinim | Projedeki karsiligi |
+| --- | --- |
+| Goruntu veri seti kullanimi | `sklearn.datasets.load_digits`, 8x8 gri seviye rakam goruntuleri |
+| Veri on isleme | Piksel degerleri `0-16` araligindan `0-1` araligina normalize edildi |
+| 1. model: LeNet-5 benzeri acik CNN sinifi | `src/models.py` icinde `LeNetLikeCNN` |
+| 2. model: ayni ana hiperparametreler + iyilestirici katmanlar | `src/models.py` icinde `ImprovedLeNetCNN`, ayni Conv2d kanal/kernel yapisi uzerine BatchNorm ve Dropout |
+| Iki modelin ayni train-test seti ile egitilmesi | Tum modeller `src/data.py` tarafindan uretilen ayni stratified split ile egitildi ve test edildi |
+| 3. model: yaygin CNN mimarisi | `AlexNetSmallCNN`, AlexNet/VGG tarzinda derin evrisim + max-pooling yaklasiminin 8x8 veriye uyarlanmis hali |
+| Cross entropy loss | `torch.nn.CrossEntropyLoss` |
+| Optimizer, learning rate, epoch, batch size gerekcesi | `Egitim ayarlari` bolumunde aciklandi |
+| Hibrit model icin CNN ozellikleri ve `.npy` label setleri | `outputs/features/train_features.npy`, `train_labels.npy`, `test_features.npy`, `test_labels.npy` |
+| Ozellik ve label boyutlarinin yazdirilmasi | `Hibrit ozellik setleri` bolumunde raporlandi |
+| CNN ve hibrit model karsilastirmasi | `Test metrikleri` tablosunda tam CNN modelleri ve SVM hibrit model birlikte verildi |
+| IMRAD rapor | `Introduction`, `Methods`, `Results`, `Discussion`, `References` basliklari |
 
 ### Egitim ayarlari
 - Loss function: `torch.nn.CrossEntropyLoss`.

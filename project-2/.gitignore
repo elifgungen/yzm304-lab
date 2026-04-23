@@ -1,0 +1,5 @@
+.pytest_cache/
+.mplconfig/
+__pycache__/
+*.pyc
+.DS_Store
